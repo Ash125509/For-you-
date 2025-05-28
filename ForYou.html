@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>For You</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(to top, #ffe4ec, #ffd1e0);
+    font-family: 'Baloo 2', cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin-bottom: 5;
+  }
+
+  .container {
+    position: relative;
+    width: 90%;
+    height: 90%;
+  }
+
+  .heart, .heart-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    transition: opacity 0.8s ease;
+  }
+
+  .heart {
+    width: 80vw;
+    max-width: 300px;
+    animation: beat 1s infinite ease-in-out;
+  }
+
+  .heart-text {
+    color: white;
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    font-weight: bold;
+    background-color: #e91e63;
+    padding: 0.5rem 1.2rem;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  @keyframes beat {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.1); }
+  }
+
+  .bubble {
+    position: absolute;
+    bottom: -20px;
+    width: 12px;
+    height: 12px;
+    background: #f8bbd0aa;
+    border-radius: 50%;
+    animation: rise 8s linear infinite;
+  }
+
+  @keyframes rise {
+    0% { transform: translateY(0) scale(1); opacity: 0.8; }
+    100% { transform: translateY(-120vh) scale(0.5); opacity: 0; }
+  }
+
+  .bubble:nth-child(1) { left: 20%; animation-delay: 0s; }
+  .bubble:nth-child(2) { left: 35%; animation-delay: 1s; }
+  .bubble:nth-child(3) { left: 60%; animation-delay: 2s; }
+  .bubble:nth-child(4) { left: 75%; animation-delay: 3s; }
+  .bubble:nth-child(5) { left: 50%; animation-delay: 4s; }
+  .bubble:nth-child(6) { left: 25%; animation-delay: 5s; }
+
+  .card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 7rem 1.5rem 4rem 1.5rem;
+    border: 4px solid pink;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    opacity: 0;
+    transition: opacity 1s ease;
+    width: 90%;
+    max-width: 320px;
+    overflow: hidden;
+    text-align: center;
+    min-height: 250px;
+    z-index: 5;
+  }
+
+  .card.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .circle-bg {
+    position: absolute;
+    top: -15px;
+    left: -20px;
+    width: 100px;
+    height: 100px;
+    background-color: #ad1457;
+    border-radius: 50%;
+    z-index: 1;
+    filter: drop-shadow(0 0 4px #880e4f99);
+    animation: slideInCircle 1s ease forwards;
+  }
+
+  .card img.card-image {
+    position: absolute;
+    top: 5px;
+    left: -5px;
+    width: 80px;
+    height: 80px;
+    border-radius: 20%;
+    object-fit: contain;
+    z-index: 2;
+  }
+
+  @keyframes slideInCircle {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  .typewriter h2, .typewriter p {
+    overflow: hidden;
+    white-space: nowrap;
+    opacity: 0;
+  }
+
+  .animate-text h2 {
+    animation: typingTitle 2s steps(20, end) forwards;
+  }
+
+  .animate-text p {
+    animation: fadeIn 2s ease forwards;
+    animation-delay: 2.2s;
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+
+  @keyframes typingTitle {
+    from { width: 0; opacity: 1; }
+    to { width: 100%; opacity: 1; }
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .next-button {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background-color: #ff69b4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.6);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .next-button:hover {
+    background-color: #ff85c1;
+    box-shadow: 0 8px 16px rgba(255, 105, 180, 0.8);
+  }
+
+  .hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  polygon {
+    stroke: #00000022;
+    stroke-width: 0.5;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+
+    <svg class="heart" viewBox="0 0 100 100">
+      <polygon points="50,45 28,28 20,45" fill="#F8BBD0"/>
+      <polygon points="50,45 20,45 28,60" fill="#F48FB1"/>
+      <polygon points="50,45 72,28 80,45" fill="#EC407A"/>
+      <polygon points="50,45 80,45 72,60" fill="#D81B60"/>
+      <polygon points="50,45 28,60 50,88" fill="#F06292"/>
+      <polygon points="50,45 40,68 50,88" fill="#E91E63"/>
+      <polygon points="50,45 72,60 50,88" fill="#F48FB1"/>
+      <polygon points="50,45 60,68 50,88" fill="#C2185B"/>
+    </svg>
+
+    <div class="heart-text" onclick="revealCard()">Click me</div>
+
+    <div class="card hidden" id="infoCard">
+      <div class="circle-bg"></div>
+      <img src="https://cdn.discordapp.com/attachments/1187750569134272602/1377033470660050975/Pink_Tulip_Transparent_Image.png?ex=68377ddb&is=68362c5b&hm=15539205a322a017799499f07943b18051ccb253417b946400bff72d2f4770ba&" class="card-image" alt="Flower" />
+      <div class="typewriter" id="typewriter1">
+        <h2 id="cardTitle">Hiii Xuan Jie (Hedgehog)!</h2>
+        <p id="cardMessage">I wanted to make something for you.. yah lahh, don't stay too angry from me okay ?!?! yeah i know I make mistakes sometimes, it prob makes you mad but I just want you to know that it wasn't any intentional okay!! You always have me okay?!? And I'm really sorry meh because I know I made you pretty pissed for some reason... IDK what reason but I hope you're okay now?!?! 
+
+You know you mean a lot to me meh, And I never want to hurt or make you feel upset on purpose, if I do something stupid you can always can scold me okay? I don't mind.... </p>
+      </div>
+      <button class="next-button" onclick="nextCard()">Next</button>
+    </div>
+
+    <div class="card hidden" id="lastCard">
+      <div class="circle-bg"></div>
+      <img src="https://cdn.discordapp.com/attachments/1187750569134272602/1377097055742197780/bunny.png?ex=6837b913&is=68366793&hm=90697a7703311ba9218380ea10e98a3b6e172200ebdb33250f4b564fafd657ad&" class="card-image" alt="Heart" />
+      <div class="typewriter" id="typewriter2">
+        <h2 id="lastCardTitle">For you...</h2>
+        <p id="lastCardMessage">I accept everything from you, even if you want to open up with something I'm always right here okay? I'm never leaving you.. As long as I'm not dead meh but yah I'll haunt you as a spirit lol, just kidding I'll probably protect you! Anyways, I really care a lot about you okay and hopefully I'll make sure that I'll abide by my promises and experience everything in future with you leh. BUT YA, that's all for now!!? You're the only person that matters the most to me, and yah you always have my support okay?! in worst or goods, I'm with you! yah.. that's all ah.. lobyou</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function animateTypewriter(id) {
+      const container = document.getElementById(id);
+      container.classList.remove("animate-text");
+      void container.offsetWidth; // Force reflow
+      container.classList.add("animate-text");
+    }
+
+    function revealCard() {
+      document.querySelector('.heart').classList.add('hidden');
+      document.querySelector('.heart-text').classList.add('hidden');
+
+      const card = document.getElementById('infoCard');
+      card.classList.remove('hidden');
+
+      setTimeout(() => {
+        card.classList.add('visible');
+        animateTypewriter("typewriter1");
+      }, 100);
+    }
+
+    function nextCard() {
+      const firstCard = document.getElementById('infoCard');
+      const lastCard = document.getElementById('lastCard');
+
+      firstCard.classList.remove('visible');
+      setTimeout(() => {
+        firstCard.classList.add('hidden');
+        lastCard.classList.remove('hidden');
+
+        setTimeout(() => {
+          lastCard.classList.add('visible');
+          animateTypewriter("typewriter2");
+        }, 100);
+      }, 500);
+    }
+  </script>
+</body>
+</html>
